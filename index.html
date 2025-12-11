@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mahtab Hossain — Software Engineer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="bg-gradient"></div>
+
+  <header>
+    <div class="container">
+      <h1 class="name">Md. Mahtab Hossain</h1>
+      <p class="tagline">Software Engineer • Full Stack Developer • Cloud & Microservices Enthusiast</p>
+
+      <div class="social">
+        <a href="mailto:mahtab.hn44@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/sagor-mahtab/" target="_blank">LinkedIn</a>
+        <a href="https://github.com/sagormahtab" target="_blank">GitHub</a>
+        <a href="https://medium.com/@sagormahtab" target="_blank">Medium</a>
+        <a href="https://x.com/mahtabontweet" target="_blank">Twitter</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ABOUT -->
+    <section class="card">
+      <h2>About Me</h2>
+      <p>
+        I’m a passionate Software Engineer specializing in <b>full-stack development</b>, 
+        <b>cloud-native systems</b>, and <b>scalable microservices</b>. I love building intuitive, 
+        clean, and performant products — from backend systems to front-end experiences.  
+      </p>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="card">
+      <h2>Skills</h2>
+      <div class="skill-columns">
+        <div>
+          <h3>Frameworks</h3>
+          <p>Node.js, TypeScript, Koa.js, NestJS, Hono, React, Next.js, Svelte</p>
+        </div>
+        <div>
+          <h3>Databases</h3>
+          <p>MongoDB, PostgreSQL, DynamoDB, MySQL</p>
+        </div>
+        <div>
+          <h3>Cloud</h3>
+          <p>AWS (Lambda, S3, EC2, SNS, SQS), Azure Functions, Firebase</p>
+        </div>
+        <div>
+          <h3>Tools</h3>
+          <p>Auth0, Docker, Git, Redux, Jest, Mapbox, PowerApps</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="card">
+      <h2>Experience</h2>
+
+      <div class="timeline">
+        <div class="item">
+          <h3>Software Engineer — Spring Rain Pvt Ltd</h3>
+          <span class="time">2022 – Present</span>
+          <p>Built microservices, PowerApps, PCF components, integrated Auth0 & Snowflake.</p>
+        </div>
+
+        <div class="item">
+          <h3>Backend Engineer — Siin.shop, Bahrain</h3>
+          <span class="time">2023</span>
+          <p>Worked on a live auction ecommerce system using Cloudflare Streams + Auth0.</p>
+        </div>
+
+        <div class="item">
+          <h3>Full Stack Developer — Tickets for Travel</h3>
+          <span class="time">2020 – 2022</span>
+          <p>Developed APIs, frontend modules, and deployed services on AWS.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="card">
+      <h2>Projects</h2>
+      <div class="project-grid">
+        <div class="project">Subi — Admin platform using Lambda + SNS</div>
+        <div class="project">Timely — Project management tool (PowerApps)</div>
+        <div class="project">Site360 — Azure serverless functions</div>
+        <div class="project">Seeda — Ads & analytics microservices</div>
+        <div class="project">Spenny — Django financial app</div>
+        <div class="project">Tickets4Travel — MERN booking app</div>
+      </div>
+    </section>
+
+    <!-- MEDIUM BLOG AUTOLOADER -->
+    <section class="card" id="blog">
+      <h2>Latest from Medium</h2>
+      <div id="medium-posts" class="blog-grid"></div>
+    </section>
+
+    <script>
+      async function loadMediumPosts() {
+        const container = document.getElementById("medium-posts");
+
+        try {
+          const url = `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@sagormahtab`;
+          const response = await fetch(url);
+          const data = await response.json();
+
+          const posts = data.items.filter(item => item.categories.length > 0).slice(0, 6);
+
+          posts.forEach(post => {
+            const div = document.createElement("div");
+            div.className = "post-card";
+
+            // Fix thumbnail issue
+            let thumb = post.thumbnail;
+            if (!thumb || thumb.includes("undefined")) {
+              const imgMatch = post.content.match(/<img[^>]+src="([^">]+)"/);
+              thumb = imgMatch ? imgMatch[1] : "https://miro.medium.com/v2/resize:fit:1400/1*R9KyHRxY6U3-b0JVpaz6Hg.png";
+            }
+
+            div.innerHTML = `
+              <img src="${thumb}" />
+              <h3>${post.title}</h3>
+              <p class="date">${post.pubDate.substring(0, 10)}</p>
+              <a href="${post.link}" target="_blank">Read More →</a>
+            `;
+
+            container.appendChild(div);
+          });
+        } catch (err) {
+          container.innerHTML = "<p>Couldn't load Medium posts.</p>";
+        }
+      }
+
+      loadMediumPosts();
+    </script>
+
+    <!-- CONTACT FORM -->
+    <section class="card" id="contact">
+      <h2>Contact Me</h2>
+
+      <form action="https://formspree.io/f/mldqpqne" method="POST" class="contact-form">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" rows="5" placeholder="Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2025 Md. Mahtab Hossain — All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
