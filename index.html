@@ -10,14 +10,29 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body id="top">
   <div class="bg-gradient"></div>
 
   <header>
     <div class="container">
-      <h1 class="name">Md. Mahtab Hossain</h1>
-      <p class="tagline">Software Engineer • Full Stack Developer • Cloud & Microservices Enthusiast</p>
-      <button class="theme-toggle" aria-label="Toggle theme">☀</button>
+      <nav class="glass-nav">
+        <a class="brand" href="#top">MH</a>
+        <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#blog">Blog</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <button class="theme-toggle" aria-label="Toggle theme">☀</button>
+      </nav>
+
+      <div class="hero-content">
+        <h1 class="name">Md. Mahtab Hossain</h1>
+        <p class="tagline">Software Engineer • Full Stack Developer • Cloud & Microservices Enthusiast</p>
+      </div>
 
       <div class="social">
         <a href="mailto:mahtab.hn44@gmail.com">Email</a>
@@ -31,7 +46,7 @@
 
   <main class="container">
 
-    <section class="card intro">
+    <section id="about" class="card intro">
       <div>
         <h2>About Me</h2>
         <p>
@@ -47,7 +62,7 @@
 
     <!-- ABOUT -->
     <!-- SKILLS -->
-    <section class="card">
+    <section id="skills" class="card">
       <h2>Skills</h2>
       <div class="skill-columns">
         <div>
@@ -69,6 +84,7 @@
             <li>MongoDB</li>
             <li>PostgreSQL</li>
             <li>DynamoDB</li>
+            <li>SQL Server</li>
             <li>MySQL</li>
           </ul>
         </div>
@@ -96,7 +112,7 @@
     </section>
 
     <!-- EXPERIENCE -->
-    <section class="card">
+    <section id="experience" class="card">
       <h2>Experience</h2>
 
       <div class="timeline">
@@ -121,7 +137,7 @@
     </section>
 
     <!-- PROJECTS -->
-    <section class="card">
+    <section id="projects" class="card">
       <h2>Projects</h2>
       <div class="project-grid">
         <div class="project">Subi — Admin platform using Lambda + SNS</div>
@@ -154,7 +170,6 @@
             const div = document.createElement("div");
             div.className = "post-card";
 
-            // Fix thumbnail issue
             let thumb = post.thumbnail;
             if (!thumb || thumb.includes("undefined")) {
               const imgMatch = post.content.match(/<img[^>]+src="([^">]+)"/);
@@ -212,6 +227,25 @@
   <script>
     const yearSpan = document.getElementById("year");
     yearSpan.textContent = new Date().getFullYear();
+    
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (menuToggle) {
+      menuToggle.addEventListener('click', () => {
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', !isExpanded);
+        navLinks.classList.toggle('active');
+      });
+      
+      // Close menu when clicking a link
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
   </script>
 </body>
 </html>
