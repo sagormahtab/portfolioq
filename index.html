@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mahtab Hossain — Software Engineer</title>
+  <link rel="icon" href="favicon.ico" />
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -16,6 +17,7 @@
     <div class="container">
       <h1 class="name">Md. Mahtab Hossain</h1>
       <p class="tagline">Software Engineer • Full Stack Developer • Cloud & Microservices Enthusiast</p>
+      <button class="theme-toggle" aria-label="Toggle theme">☀</button>
 
       <div class="social">
         <a href="mailto:mahtab.hn44@gmail.com">Email</a>
@@ -29,35 +31,66 @@
 
   <main class="container">
 
-    <!-- ABOUT -->
-    <section class="card">
-      <h2>About Me</h2>
-      <p>
-        I’m a passionate Software Engineer specializing in <b>full-stack development</b>, 
-        <b>cloud-native systems</b>, and <b>scalable microservices</b>. I love building intuitive, 
-        clean, and performant products — from backend systems to front-end experiences.  
-      </p>
+    <section class="card intro">
+      <div>
+        <h2>About Me</h2>
+        <p>
+          I’m a passionate Software Engineer specializing in <b>full-stack development</b>, 
+          <b>cloud-native systems</b>, and <b>scalable microservices</b>. I love building intuitive, 
+          clean, and performant products — from backend systems to front-end experiences.  
+        </p>
+      </div>
+      <div class="portrait-wrap">
+        <img id="portrait" src="mahtab.jpg" alt="Md. Mahtab Hossain portrait" />
+      </div>
     </section>
 
+    <!-- ABOUT -->
     <!-- SKILLS -->
     <section class="card">
       <h2>Skills</h2>
       <div class="skill-columns">
         <div>
           <h3>Frameworks</h3>
-          <p>Node.js, TypeScript, Koa.js, NestJS, Hono, React, Next.js, Svelte</p>
+          <ul class="skill-badges">
+            <li>Node.js</li>
+            <li>TypeScript</li>
+            <li>Koa.js</li>
+            <li>NestJS</li>
+            <li>Hono</li>
+            <li>React</li>
+            <li>Next.js</li>
+            <li>Svelte</li>
+          </ul>
         </div>
         <div>
           <h3>Databases</h3>
-          <p>MongoDB, PostgreSQL, DynamoDB, MySQL</p>
+          <ul class="skill-badges">
+            <li>MongoDB</li>
+            <li>PostgreSQL</li>
+            <li>DynamoDB</li>
+            <li>MySQL</li>
+          </ul>
         </div>
         <div>
           <h3>Cloud</h3>
-          <p>AWS (Lambda, S3, EC2, SNS, SQS), Azure Functions, Firebase</p>
+          <ul class="skill-badges">
+            <li>AWS (Lambda, S3, EC2, SNS, SQS)</li>
+            <li>Azure Functions</li>
+            <li>Firebase</li>
+          </ul>
         </div>
         <div>
           <h3>Tools</h3>
-          <p>Auth0, Docker, Git, Redux, Jest, Mapbox, PowerApps</p>
+          <ul class="skill-badges">
+            <li>Auth0</li>
+            <li>Docker</li>
+            <li>Git</li>
+            <li>Redux</li>
+            <li>Jest</li>
+            <li>Mapbox</li>
+            <li>PowerApps</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -160,8 +193,25 @@
   </main>
 
   <footer>
-    <p>© 2025 Md. Mahtab Hossain — All rights reserved.</p>
+    <p>© <span id="year"></span> Md. Mahtab Hossain — All rights reserved.</p>
   </footer>
 
+  <script>
+    const toggle = document.querySelector('.theme-toggle');
+    const body = document.body;
+    const saved = localStorage.getItem('theme');
+    const setIcon = t => toggle.textContent = t === 'dark' ? '☾' : '☀';
+    const setTheme = t => { body.dataset.theme = t; localStorage.setItem('theme', t); setIcon(t); };
+    setTheme(saved || 'light');
+    toggle.addEventListener('click', () => setTheme(body.dataset.theme === 'dark' ? 'light' : 'dark'));
+    body.classList.add('theme-ready');
+    toggle.setAttribute('aria-label', 'Toggle theme');
+    toggle.setAttribute('title', 'Toggle theme');
+  </script>
+
+  <script>
+    const yearSpan = document.getElementById("year");
+    yearSpan.textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
